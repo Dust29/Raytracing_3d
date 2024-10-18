@@ -1,22 +1,25 @@
 import Tkinter_Output
 import random
+from Ray_Tracer import Vec3_Class, Color_Utils
 
 # Dimensions de l'image
-width, height = 1920, 1080
+width, height = 256, 256
 
-#TEMPORAIRE
+# TEMPORAIRE
 # Création d'une liste de listes de couleurs RGB (structure 2D)
 rgb_values = []
-for i in range(width):
+for j in range(height):
     row = []
-    print(int((i + 1) / width * 100))  # Pour afficher un pourcentage
-    for j in range(height):
-        # Chaque pixel est une liste [R, G, B]
-        row.append(
-            [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])  # On rempli de valeurs aléatoires
-        # On a donc une liste de liste de liste
-        # Rgb_Value[Colonnes[Lignes[Pixel]]]
+    print(f'Scanline remaining {height - j}')
+    for i in range(width):
+
+        # On défini les couleurs en fonctions des positions (de 0 à 1)
+        pixel_color = Color_Utils.color((i / (width-1)), (j / (height - 1)), 0.0)
+
+        row.append(Color_Utils.write_color(pixel_color))
 
     rgb_values.append(row)
 
-Tkinter_Output.output(rgb_values,width, height) #Ici, il faudra simplement mettre l'array finit du raytracing pour que tkinter l'affiche
+
+# Ici, il faudra simplement mettre l'array finit du raytracing pour que tkinter l'affiche
+Tkinter_Output.output(rgb_values, width, height)
